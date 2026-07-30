@@ -1,0 +1,65 @@
+<Window x:Class="Putevie.Views.TargetFuelRemainingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Залишок палива після генерації"
+        Height="280"
+        Width="420"
+        MinHeight="260"
+        MinWidth="380"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{StaticResource PageBackgroundBrush}"
+        FontFamily="Segoe UI Variable, Segoe UI"
+        ShowInTaskbar="False">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Залишок палива в баку"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       Foreground="{StaticResource TextPrimaryBrush}"
+                       Margin="0,0,0,8" />
+            <TextBlock Text="Вкажіть, скільки літрів має залишитися в баку після генерації колійних листів. Надлишок буде списано через витрати."
+                       TextWrapping="Wrap"
+                       Foreground="{StaticResource TextSecondaryBrush}"
+                       FontSize="13"
+                       Margin="0,0,0,20" />
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,16">
+            <StackPanel>
+                <TextBlock Text="Залишок палива після генерації (л)"
+                           Style="{StaticResource FieldLabelStyle}" />
+                <TextBox Text="{Binding TargetFuelRemaining, UpdateSourceTrigger=LostFocus, StringFormat=F2}"
+                         Style="{StaticResource FluentTextBoxStyle}"
+                         Margin="0,0,0,8" />
+                <TextBlock Text="{Binding ValidationMessage}"
+                           Foreground="#C42B1C"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           MinHeight="16" />
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Скасувати"
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Command="{Binding CancelCommand}"
+                    Margin="0,0,8,0"
+                    MinWidth="100"
+                    IsCancel="True" />
+            <Button Content="Продовжити"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding ConfirmCommand}"
+                    MinWidth="120"
+                    IsDefault="True" />
+        </StackPanel>
+    </Grid>
+</Window>

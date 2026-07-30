@@ -10,6 +10,9 @@ public static class FuelMath
     public static double MaxConsumableLiters(double fuelDeparture, double refuelLiters) =>
         RoundLiters(fuelDeparture + refuelLiters - MinimumFuelLiters);
 
+    public static double MaxConsumableLiters(double fuelDeparture, double refuelLiters, double minimumRemaining) =>
+        RoundLiters(fuelDeparture + refuelLiters - minimumRemaining);
+
     public static double DistanceFromConsumption(double consumptionLiters, double normPer100Km) =>
         normPer100Km <= 0
             ? 0
