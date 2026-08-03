@@ -61,6 +61,8 @@ public class WaybillGeneratorService
         var currentDate = periodStart;
         var odometerDeparture = request.InitialOdometer;
         var fuelDeparture = FuelMath.RoundLiters(request.FuelRemainingAtLastDate);
+        var sequenceNumber = Math.Max(1, request.StartingSequenceNumber);
+        var currentNumberingMonth = -1;
 
         if (fuelDeparture < FuelMath.MinimumFuelLiters)
         {
@@ -129,12 +131,28 @@ public class WaybillGeneratorService
             var odometerReturn = odometerDeparture + (int)Math.Round(distanceKm, MidpointRounding.AwayFromZero);
             var (tempDeparture, tempReturn) = GenerateTemperatures(currentDate);
 
+            if (currentDate.Month != currentNumberingMonth)
+            {
+                // Новий місяць у номері — порядковий з початку (або стартовий для першого місяця).
+                sequenceNumber = currentNumberingMonth < 0
+                    ? Math.Max(1, request.StartingSequenceNumber)
+                    : 1;
+                currentNumberingMonth = currentDate.Month;
+            }
+
+            var waybillNumber = WaybillNumbering.Format(
+                request.LicensePlate,
+                currentDate,
+                sequenceNumber);
+
             result.Entries.Add(new WaybillEntry
             {
                 Date = currentDate,
                 VehicleName = request.VehicleName,
                 LicensePlate = request.LicensePlate,
                 EmployeeName = request.EmployeeName,
+                WaybillNumber = waybillNumber,
+                SequenceNumber = sequenceNumber,
                 DistanceKm = FuelMath.RoundLiters(distanceKm),
                 OdometerDeparture = odometerDeparture,
                 OdometerReturn = odometerReturn,
@@ -146,6 +164,7 @@ public class WaybillGeneratorService
                 TemperatureReturn = tempReturn
             });
 
+            sequenceNumber++;
             requiredRefuelDates.Remove(currentDate);
             odometerDeparture = odometerReturn;
             fuelDeparture = fuelReturn;
