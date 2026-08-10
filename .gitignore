@@ -34,3 +34,11 @@ bld/
 *.log
 .DS_Store
 Thumbs.db
+
+## Publish / installer outputs
+artifacts/publish/
+artifacts/installer/*.exe
+artifacts/installer/*.zip
+!artifacts/installer/.gitkeep
+!installer/
+!scripts/

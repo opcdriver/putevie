@@ -6,6 +6,17 @@ public class WaybillEntry
     public string VehicleName { get; set; } = string.Empty;
     public string LicensePlate { get; set; } = string.Empty;
     public string EmployeeName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Номер колійного листа: держномер-місяць-порядковий (напр. AA1234BB-07-001).
+    /// </summary>
+    public string WaybillNumber { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Порядковий номер у межах місяця.
+    /// </summary>
+    public int SequenceNumber { get; set; }
+
     public double DistanceKm { get; set; }
     public int OdometerDeparture { get; set; }
     public int OdometerReturn { get; set; }

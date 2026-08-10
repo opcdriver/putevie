@@ -84,6 +84,10 @@
                         <TextBlock Text="Початковий одометр (км)" Style="{StaticResource FieldLabelStyle}" />
                         <TextBox Text="{Binding InitialOdometer, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource FluentTextBoxStyle}" />
+                        <TextBlock Text="Початковий порядковий номер колійного листа" Style="{StaticResource FieldLabelStyle}" />
+                        <TextBox Text="{Binding StartingSequenceNumber, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource FluentTextBoxStyle}"
+                                 ToolTip="Формат номера: ДЕРЖНОМЕР-МІСЯЦЬ-ПОРЯДКОВИЙ, напр. AA1234BB-07-001" />
                     </StackPanel>
                 </Border>
 
@@ -151,6 +155,11 @@
                         Command="{Binding GenerateCommand}"
                         HorizontalAlignment="Stretch"
                         Margin="0,0,0,8" />
+                <Button Content="Зберегти документи (шаблон)"
+                        Style="{StaticResource SecondaryButtonStyle}"
+                        Command="{Binding ExportDocumentsCommand}"
+                        HorizontalAlignment="Stretch"
+                        Margin="0,0,0,8" />
                 <TextBlock Text="{Binding StatusMessage}"
                            Foreground="{StaticResource TextSecondaryBrush}"
                            FontSize="13"
@@ -189,6 +198,7 @@
                               CanUserDeleteRows="False"
                               CanUserResizeRows="False">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="№ колійного" Binding="{Binding WaybillNumber}" Width="140" />
                             <DataGridTextColumn Header="Дата" Binding="{Binding DateDisplay}" Width="100" />
                             <DataGridTextColumn Header="Працівник" Binding="{Binding EmployeeName}" Width="160" />
                             <DataGridTextColumn Header="Авто" Binding="{Binding VehicleName}" Width="120" />

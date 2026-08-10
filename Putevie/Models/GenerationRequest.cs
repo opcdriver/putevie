@@ -13,6 +13,19 @@ public class GenerationRequest
     public DateTime GenerateUntilDate { get; set; }
     public double FuelConsumptionNormPer100Km { get; set; }
     public int InitialOdometer { get; set; }
+
+    /// <summary>
+    /// Цільовий залишок палива в баку після генерації (л).
+    /// Надлишок списується через витрати по колійних листах.
+    /// </summary>
+    public double TargetFuelRemainingAfterGeneration { get; set; }
+
+    /// <summary>
+    /// Початковий порядковий номер для першого місяця в періоді генерації.
+    /// При зміні місяця нумерація починається з 1.
+    /// </summary>
+    public int StartingSequenceNumber { get; set; } = 1;
+
     public IList<RefuelEntry> Refuels { get; set; } = [];
     public HashSet<DayOfWeek> ExcludedDays { get; set; } = [];
 }
